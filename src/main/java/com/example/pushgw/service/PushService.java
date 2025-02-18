@@ -60,10 +60,10 @@ public class PushService {
                     log.error("Push notification rejected statusCode: {}, reason: {}", response.getStatusCode(), response.getRejectionReason());
                     return ResponseEntity.status(response.getStatusCode()).body(rejectionReason);
                 }
-            } catch (ExecutionException e) { // APNs 요청 실패 (네트워크 오류, 인증 오류 등)
+            } catch (ExecutionException e) {
                 log.error("Push notification request failed: {}", e.getCause().getMessage());
                 return ResponseEntity.internalServerError().body("Push notification request failed");
-            } catch (InterruptedException e) { // 현재 스레드가 중단됨
+            } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error("Push notificatino was interruped: {}", e.getCause().getMessage());
                 return ResponseEntity.internalServerError().body("Push notification was interruped");
